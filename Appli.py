@@ -1,6 +1,7 @@
-import User
+
 
 def msgBienvenue():
+    cleanTerminal()
     print("Bonjour et bienvenue dans notre ERP")
 
 def demandePrenom():
@@ -49,19 +50,22 @@ def lancerAction(numeroAction):
 
 def action1():
     print("WIP Action 1")
+    input("Press Enter to continue...")
 
 def action2():
     print("WIP Action 2")
+    input("Press Enter to continue...")
 
 def action3():
     print("WIP Action 3")
+    input("Press Enter to continue...")
 
 def action4():
     print("WIP Action 4")
+    input("Press Enter to continue...")
 
 def action5():
     print("Deconnexion en cours")
-
 
 def cleanTerminal():
     for i in range (0,20):
