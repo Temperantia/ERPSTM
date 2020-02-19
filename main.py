@@ -1,17 +1,10 @@
-import sqlalchemy as db
-from models import User, Fournisseur
-from sqlalchemy.orm import sessionmaker
+from models import User, Supplier
+from session import session
 
-engine = db.create_engine('mysql+pymysql://root:rootroot@localhost:3306/mydb')
-Session = sessionmaker(bind=engine)
-session = Session()
-
-fournisseur = Fournisseur(idfournisseur=3)
-user = User(nom='lol', prenom='ok', interne=True, fournisseur_idfournisseur1=fournisseur.idfournisseur)
-session.add_all([fournisseur, user])
+supplier = Supplier()
+session.add(supplier)
 session.commit()
+print(supplier.id)
 
-#query = db.select([user])
-#result = connection.execute(query)
-#result = result.fetchall()
-#print(result)
+result = session.query(Supplier).all()
+print(result)
