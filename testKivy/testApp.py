@@ -7,6 +7,8 @@ from kivy.lang import Builder
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.textinput import TextInput
 from kivy.uix.widget import Widget
+from kivy.uix.screenmanager import Screen, ScreenManager
+ 
 
 #Builder.load_file("test.kv")
 
@@ -20,15 +22,23 @@ def standardTextField(text):
         t.multiline=False
         return t
 
-class MyApp(App):
+class Login(Widget):
     nom = None
     mdp = None
+
+    def validating(self):
+        self.getFields()
+        self.clearFields()
 
     def getFields(self):
         nom = self.nom.text
         mdp = self.mdp.text
         print (nom, mdp)
         return (nom, mdp)
+
+    def clearFields(self):
+        self.nom.text = ""
+        self.mdp.text = ""
 
     def build(self):
         b = BoxLayout(orientation = 'vertical')
@@ -44,7 +54,7 @@ class MyApp(App):
 
         btn = Button(text = "Valider")
         btn.size_hint = (.4,0.1)
-        btn.on_press = self.getFields
+        btn.on_press = self.validating
         l = Label(text = "")
         
         b.add_widget(btn)
@@ -52,5 +62,26 @@ class MyApp(App):
        
         return b
 
+
+
+# Create the screen manager
+
+#class SM(ScreenManager):
+    
+
+
+class MyApp(App):
+    def build(self):
+        sm = ScreenManager()
+        #login = Login(name='login')
+        #sm.add_widget(login)
+
+        main = Screen(name='main')
+        l = Login()
+        main.add_widget(l)
+        #main.add_widget(Button(text='main'))
+        sm.add_widget(main)
+        
+        return sm
 
 MyApp().run()
