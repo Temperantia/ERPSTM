@@ -43,7 +43,7 @@ class Login(Screen):
         b.size_hint = (0.5,1)
         b.pos_hint = {'x' : 0.25} 
         b.pos = (0, 0)
-        b.spacing = 40
+        b.spacing = 20
 
         title = standardTitle("Connexion")
         b.add_widget(title)
@@ -149,7 +149,7 @@ class Register(Screen):
             self.supplier = True
 
     def validating(self):
-        info = self.getFields()
+        self.getFields()
         self.clearFields()
         
 
@@ -207,6 +207,14 @@ class PickRegisterOrLogin(Screen):
         MyApp.sm.current = 'register'
 
 class CompanyInformations(Screen):
+    effectif = None
+    turnOver = None
+    activitySector = None
+    mainbutton = None
+    CEOName = None
+    SIREN = None
+    contact = None
+
     def switchStatutJuridique(self,numero):
         nom = ""
         if (numero == 0):
@@ -226,11 +234,11 @@ class CompanyInformations(Screen):
         b = BoxLayout(orientation='vertical')
         b.padding = [10, 10, 10, 10]
         b.pos = (0, 0)
-        b.spacing = 40
+        b.spacing = 20
         b.size_hint = (0.5,1)
         b.pos_hint = {'x' : 0.25}
 
-        title = standardTitle("Renseignements des informations d'entreprises")
+        title = standardTitle("Renseignement des informations de l'entreprise")
 
         dropdown = DropDown()
         for index in range(5):
@@ -241,26 +249,57 @@ class CompanyInformations(Screen):
             btn.bind(on_release=lambda btn: dropdown.select(btn.text))
             dropdown.add_widget(btn)
 
-        mainbutton = Button(text='Statut Juridique', size_hint=(1, .5))
-        mainbutton.bind(on_release=dropdown.open)
-        dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
+        self.mainbutton = Button(text='Statut Juridique', size_hint=(1, .5))
+        self.mainbutton.bind(on_release=dropdown.open)
+        dropdown.bind(on_select=lambda instance, x: setattr(self.mainbutton, 'text', x))
 
+        self.turnOver = standardTextField("Chiffre d'affaires en €")
+        self.turnOver.input_filter = 'float'
+        self.effectif = standardTextField("Nombres d'employés")
+        self.effectif.input_filter = 'float'
+        self.activitySector = standardTextField("Secteur d'activité")
+        self.CEOName = standardTextField("Nom du dirigeant")
+        self.SIREN = standardTextField("Numéro SIREN")
+        self.contact = standardTextField("Coordonnés de l'interlocuteur")
 
-        turnOver = standardTextField("Chiffre d'affaires en €")
-        turnOver.input_filter = 'float'
-
-        effectif = standardTextField("Nombres d'employés")
-        
         validatingButton = Button()
         validatingButton.text = "Valider"
+        validatingButton.on_press = self.validating
 
         b.add_widget(title)
-        b.add_widget(mainbutton)
-        b.add_widget(turnOver)
-        b.add_widget(effectif)
+        b.add_widget(self.mainbutton)
+        b.add_widget(self.turnOver)
+        b.add_widget(self.effectif)
+        b.add_widget(self.activitySector)
+        b.add_widget(self.CEOName)
+        b.add_widget(self.SIREN)
+        b.add_widget(self.contact)
         b.add_widget(validatingButton)
-
         self.add_widget(b)
+
+    def validating(self):
+        self.getFields()
+        self.clearFields()
+        
+    def getFields(self):
+        legalStatus = self.mainbutton.text
+        effectif = self.effectif.text
+        turnOver = self.turnOver.text
+        activitySector = self.activitySector.text
+        CEOName = self.CEOName.text
+        SIREN = self.SIREN.text
+        contact = self.contact.text
+        print(legalStatus, effectif,turnOver,activitySector, CEOName, SIREN, contact)
+        return (legalStatus, effectif,turnOver,activitySector,CEOName, SIREN, contact)
+
+    def clearFields(self):
+        self.effectif.text = ""
+        self.turnOver.text = ""
+        self.activitySector.text = ""
+        self.CEOName.text = ""
+        self.SIREN.text = ""
+        self.contact.text = ""
+
 
 class MyApp(App):
 
@@ -276,9 +315,7 @@ class MyApp(App):
         self.sm.add_widget(login)
         self.sm.add_widget(register)
         self.sm.add_widget(companyInformations)
-        self.sm.current = 'companyInformations'
-        
-        #ligne inutile
+        #self.sm.current = 'companyInformations'
 
         return self.sm
 
