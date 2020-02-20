@@ -68,3 +68,4 @@ class User(Base):
 
     role = relationship('Role')
     supplier = relationship('Supplier')
+    #commentaire

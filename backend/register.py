@@ -19,4 +19,4 @@ def role(nme):
 
 role("Chef")
 supplier("Google", "8 rue des pack", "SARL", 10000, 30, True)
-register_user("Eric", "SOM DUTT", "Bibirani", "ERIc5372", True, 2, 4) 
+register_user("Eric", "SOM DUTT", "Bibirani", "ERIc5372", True, 2, 4)
