@@ -278,6 +278,8 @@ class MyApp(App):
         self.sm.add_widget(companyInformations)
         self.sm.current = 'companyInformations'
         
+        #ligne inutile
+
         return self.sm
 
 
