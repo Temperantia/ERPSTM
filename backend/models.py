@@ -58,11 +58,12 @@ class User(Base):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
-    lastname = Column(String(70))
-    firstname = Column(String(70))
-    internal = Column(TINYINT)
+    lastname = Column(String(70), nullable=False)
+    firstname = Column(String(70), nullable=False)
+    internal = Column(TINYINT, nullable=False)
     id_supplier = Column(ForeignKey('supplier.id'), nullable=False, index=True)
     id_role = Column(ForeignKey('role.id'), nullable=False, index=True)
+    password = Column(Integer, nullable=False)
 
     role = relationship('Role')
     supplier = relationship('Supplier')
