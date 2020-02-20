@@ -8,13 +8,14 @@ from kivy.uix.recycleview import RecycleView
 from kivy.uix.textinput import TextInput
 from kivy.uix.widget import Widget
 from kivy.uix.screenmanager import Screen, ScreenManager
-
+from kivy.uix.dropdown import DropDown #pour utilisation de menu deroulants
+from kivy.base import runTouchApp
 
 
 def standardTextField(text):
     t = TextInput()
     t.hint_text = text
-    t.font_size = 25
+    t.font_size = 22
     t.focus = True
     t.size_hint_max_y = 40
     t.multiline = False
@@ -30,6 +31,7 @@ def standardTitle(text):
         title.font_size = 26
         return title
 
+
 class Login(Screen):
     nom = None
     mdp = None
@@ -41,12 +43,12 @@ class Login(Screen):
         b.size_hint = (0.5,1)
         b.pos_hint = {'x' : 0.25} 
         b.pos = (0, 0)
-        b.spacing = 40
+        b.spacing = 20
 
         title = standardTitle("Connexion")
         b.add_widget(title)
 
-        self.nom = standardTextField("Nom")
+        self.nom = standardTextField("Pseudo")
         self.mdp = standardTextField("Mot de passe")
         self.mdp.password = True
         b.add_widget(self.nom)
@@ -55,11 +57,20 @@ class Login(Screen):
         btn = Button(text="Valider")
         btn.size_hint = (1,.4)
         btn.on_press = self.validating
+
+        bouttonRetour = Button(text = "Retour")
+        bouttonRetour.on_press = self.retour
+        
         l = Label(text="")
 
         b.add_widget(btn)
+        b.add_widget(bouttonRetour)
         b.add_widget(l)
         self.add_widget(b)
+
+    def retour(self):
+        MyApp.sm.current = 'pickLogin'
+
 
     def validating(self):
         self.getFields()
@@ -79,7 +90,6 @@ class Login(Screen):
 class Register(Screen):
     firstName = None
     lastName = None
-    birthDate = None
     pseudo = None
     passwd = None
     buttnSupplierIntern = Button()
@@ -99,13 +109,13 @@ class Register(Screen):
         #TO DO ajout du poste
         self.firstName = standardTextField("Prénom")
         self.lastName = standardTextField("Nom")
-        self.birthDate = standardTextField("Date de naissance")
         self.pseudo = standardTextField("Pseudo")
         self.passwd = standardTextField("Mot de passe")
 
+        self.passwd.password = True
+
         b.add_widget(self.firstName)
         b.add_widget(self.lastName)
-        b.add_widget(self.birthDate)
         b.add_widget(self.pseudo)
         b.add_widget(self.passwd)
 
@@ -116,11 +126,16 @@ class Register(Screen):
 
         btn = Button(text="Valider")
         btn.on_press = self.validating
-        l = Label(text="")
+
+        bouttonRetour = Button(text = "Retour")
+        bouttonRetour.on_press = self.retour
 
         b.add_widget(btn)
-        b.add_widget(l)
+        b.add_widget(bouttonRetour)
         self.add_widget(b)
+
+    def retour(self):
+        MyApp.sm.current = 'pickLogin'
 
     def changeStatus(self):
         if(self.supplier):
@@ -136,26 +151,24 @@ class Register(Screen):
     def validating(self):
         self.getFields()
         self.clearFields()
+        
 
     def getFields(self):
         firstName = self.firstName.text
         lastName = self.lastName.text
-        birthDate = self.birthDate.text
         pseudo = self.pseudo.text
         passwd = self.passwd.text
 
         #a delete une fois le lien avec le back effectué
         print("prenom " + firstName)          
-        print("nom " + lastName)          
-        print("date de naissance  " + birthDate)          
+        print("nom " + lastName)                
         print("pseudo " + pseudo)          
         print("mot de passe " + passwd)        
-        return (firstName, lastName, birthDate, pseudo, passwd)
+        return (firstName, lastName, pseudo, passwd)
 
     def clearFields(self):
         self.firstName.text = ""
         self.lastName.text = ""
-        self.birthDate.text = ""
         self.pseudo.text = ""
         self.passwd.text = ""
         
@@ -193,6 +206,101 @@ class PickRegisterOrLogin(Screen):
     def goToRegisterSreen(self):
         MyApp.sm.current = 'register'
 
+class CompanyInformations(Screen):
+    effectif = None
+    turnOver = None
+    activitySector = None
+    mainbutton = None
+    CEOName = None
+    SIREN = None
+    contact = None
+
+    def switchStatutJuridique(self,numero):
+        nom = ""
+        if (numero == 0):
+            nom = "SARL"
+        if (numero == 1):
+            nom = "SA"
+        if (numero == 2):
+            nom = "SAS"
+        if (numero == 3):
+            nom = "EURL"
+        if (numero == 4):
+            nom = "EI" 
+        return nom
+
+    def __init__(self, **kwargs):
+        super(CompanyInformations, self).__init__(**kwargs)
+        b = BoxLayout(orientation='vertical')
+        b.padding = [10, 10, 10, 10]
+        b.pos = (0, 0)
+        b.spacing = 20
+        b.size_hint = (0.5,1)
+        b.pos_hint = {'x' : 0.25}
+
+        title = standardTitle("Renseignement des informations de l'entreprise")
+
+        dropdown = DropDown()
+        for index in range(5):
+
+            nom = self.switchStatutJuridique(index)
+
+            btn = Button(text = nom, size_hint_y=None, height=44)
+            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
+            dropdown.add_widget(btn)
+
+        self.mainbutton = Button(text='Statut Juridique', size_hint=(1, .5))
+        self.mainbutton.bind(on_release=dropdown.open)
+        dropdown.bind(on_select=lambda instance, x: setattr(self.mainbutton, 'text', x))
+
+        self.turnOver = standardTextField("Chiffre d'affaires en €")
+        self.turnOver.input_filter = 'float'
+        self.effectif = standardTextField("Nombres d'employés")
+        self.effectif.input_filter = 'float'
+        self.activitySector = standardTextField("Secteur d'activité")
+        self.CEOName = standardTextField("Nom du dirigeant")
+        self.SIREN = standardTextField("Numéro SIREN")
+        self.contact = standardTextField("Coordonnés de l'interlocuteur")
+
+        validatingButton = Button()
+        validatingButton.text = "Valider"
+        validatingButton.on_press = self.validating
+
+        b.add_widget(title)
+        b.add_widget(self.mainbutton)
+        b.add_widget(self.turnOver)
+        b.add_widget(self.effectif)
+        b.add_widget(self.activitySector)
+        b.add_widget(self.CEOName)
+        b.add_widget(self.SIREN)
+        b.add_widget(self.contact)
+        b.add_widget(validatingButton)
+        self.add_widget(b)
+
+    def validating(self):
+        self.getFields()
+        self.clearFields()
+        
+    def getFields(self):
+        legalStatus = self.mainbutton.text
+        effectif = self.effectif.text
+        turnOver = self.turnOver.text
+        activitySector = self.activitySector.text
+        CEOName = self.CEOName.text
+        SIREN = self.SIREN.text
+        contact = self.contact.text
+        print(legalStatus, effectif,turnOver,activitySector, CEOName, SIREN, contact)
+        return (legalStatus, effectif,turnOver,activitySector,CEOName, SIREN, contact)
+
+    def clearFields(self):
+        self.effectif.text = ""
+        self.turnOver.text = ""
+        self.activitySector.text = ""
+        self.CEOName.text = ""
+        self.SIREN.text = ""
+        self.contact.text = ""
+
+
 class MyApp(App):
 
     sm = ScreenManager()
@@ -201,12 +309,14 @@ class MyApp(App):
         pickLogin = PickRegisterOrLogin(name = 'pickLogin')
         login = Login(name='login')
         register = Register(name = 'register')
-
+        companyInformations = CompanyInformations(name = 'companyInformations')
+        
         self.sm.add_widget(pickLogin)
         self.sm.add_widget(login)
         self.sm.add_widget(register)
-        #sm.current = 'register'
-        
+        self.sm.add_widget(companyInformations)
+        #self.sm.current = 'companyInformations'
+
         return self.sm
 
 
