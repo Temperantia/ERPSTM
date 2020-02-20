@@ -60,10 +60,11 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     lastname = Column(String(70), nullable=False)
     firstname = Column(String(70), nullable=False)
+    personal_id = Column(String(45))
+    password = Column(String(45), nullable=False)
     internal = Column(TINYINT, nullable=False)
-    id_supplier = Column(ForeignKey('supplier.id'), nullable=False, index=True)
+    id_supplier = Column(ForeignKey('supplier.id'), index=True)
     id_role = Column(ForeignKey('role.id'), nullable=False, index=True)
-    password = Column(Integer, nullable=False)
 
     role = relationship('Role')
     supplier = relationship('Supplier')
