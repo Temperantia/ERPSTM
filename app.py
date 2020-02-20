@@ -11,6 +11,8 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.dropdown import DropDown #pour utilisation de menu deroulants
 from kivy.base import runTouchApp
 
+from backend.register import register_user
+
 
 def standardTextField(text):
     t = TextInput()
@@ -75,6 +77,7 @@ class Login(Screen):
     def validating(self):
         self.getFields()
         self.clearFields()
+        
 
     def getFields(self):
         nom = self.nom.text
@@ -149,9 +152,11 @@ class Register(Screen):
             self.supplier = True
 
     def validating(self):
-        self.getFields()
+        infos = self.getFields()
         self.clearFields()
+        prenom,nom,pseudo,mdp = infos
         
+        register_user(prenom,nom,pseudo,mdp,self.supplier)
 
     def getFields(self):
         firstName = self.firstName.text
