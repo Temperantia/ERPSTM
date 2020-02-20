@@ -238,14 +238,17 @@ class CompanyInformations(Screen):
 
 
         turnOver = standardTextField("Chiffre d'affaires en €")
-        
+        turnOver.input_filter = 'float'
 
+        effectif = standardTextField("Nombres d'employés")
+        
         validatingButton = Button()
         validatingButton.text = "Valider"
 
         b.add_widget(title)
         b.add_widget(mainbutton)
         b.add_widget(turnOver)
+        b.add_widget(effectif)
         b.add_widget(validatingButton)
         
 
@@ -260,12 +263,14 @@ class MyApp(App):
         login = Login(name='login')
         register = Register(name = 'register')
         companyInformations = CompanyInformations(name = 'companyInformations')
+        
+
 
         self.sm.add_widget(pickLogin)
         self.sm.add_widget(login)
         self.sm.add_widget(register)
         self.sm.add_widget(companyInformations)
-        self.sm.current = 'companyInformations'
+        #self.sm.current = 'companyInformations'
         
         return self.sm
 
