@@ -31,6 +31,7 @@ def standardTitle(text):
         title.font_size = 26
         return title
 
+
 class Login(Screen):
     nom = None
     mdp = None
@@ -47,7 +48,7 @@ class Login(Screen):
         title = standardTitle("Connexion")
         b.add_widget(title)
 
-        self.nom = standardTextField("Nom")
+        self.nom = standardTextField("Pseudo")
         self.mdp = standardTextField("Mot de passe")
         self.mdp.password = True
         b.add_widget(self.nom)
@@ -56,11 +57,20 @@ class Login(Screen):
         btn = Button(text="Valider")
         btn.size_hint = (1,.4)
         btn.on_press = self.validating
+
+        bouttonRetour = Button(text = "Retour")
+        bouttonRetour.on_press = self.retour
+        
         l = Label(text="")
 
         b.add_widget(btn)
+        b.add_widget(bouttonRetour)
         b.add_widget(l)
         self.add_widget(b)
+
+    def retour(self):
+        MyApp.sm.current = 'pickLogin'
+
 
     def validating(self):
         self.getFields()
@@ -80,7 +90,6 @@ class Login(Screen):
 class Register(Screen):
     firstName = None
     lastName = None
-    birthDate = None
     pseudo = None
     passwd = None
     buttnSupplierIntern = Button()
@@ -100,7 +109,6 @@ class Register(Screen):
         #TO DO ajout du poste
         self.firstName = standardTextField("Prénom")
         self.lastName = standardTextField("Nom")
-        self.birthDate = standardTextField("Date de naissance")
         self.pseudo = standardTextField("Pseudo")
         self.passwd = standardTextField("Mot de passe")
 
@@ -108,7 +116,6 @@ class Register(Screen):
 
         b.add_widget(self.firstName)
         b.add_widget(self.lastName)
-        b.add_widget(self.birthDate)
         b.add_widget(self.pseudo)
         b.add_widget(self.passwd)
 
@@ -119,11 +126,16 @@ class Register(Screen):
 
         btn = Button(text="Valider")
         btn.on_press = self.validating
-        l = Label(text="")
+
+        bouttonRetour = Button(text = "Retour")
+        bouttonRetour.on_press = self.retour
 
         b.add_widget(btn)
-        #b.add_widget(l)
+        b.add_widget(bouttonRetour)
         self.add_widget(b)
+
+    def retour(self):
+        MyApp.sm.current = 'pickLogin'
 
     def changeStatus(self):
         if(self.supplier):
@@ -137,28 +149,26 @@ class Register(Screen):
             self.supplier = True
 
     def validating(self):
-        self.getFields()
+        info = self.getFields()
         self.clearFields()
+        
 
     def getFields(self):
         firstName = self.firstName.text
         lastName = self.lastName.text
-        birthDate = self.birthDate.text
         pseudo = self.pseudo.text
         passwd = self.passwd.text
 
         #a delete une fois le lien avec le back effectué
         print("prenom " + firstName)          
-        print("nom " + lastName)          
-        print("date de naissance  " + birthDate)          
+        print("nom " + lastName)                
         print("pseudo " + pseudo)          
         print("mot de passe " + passwd)        
-        return (firstName, lastName, birthDate, pseudo, passwd)
+        return (firstName, lastName, pseudo, passwd)
 
     def clearFields(self):
         self.firstName.text = ""
         self.lastName.text = ""
-        self.birthDate.text = ""
         self.pseudo.text = ""
         self.passwd.text = ""
         
@@ -211,7 +221,6 @@ class CompanyInformations(Screen):
             nom = "EI" 
         return nom
 
-
     def __init__(self, **kwargs):
         super(CompanyInformations, self).__init__(**kwargs)
         b = BoxLayout(orientation='vertical')
@@ -250,7 +259,6 @@ class CompanyInformations(Screen):
         b.add_widget(turnOver)
         b.add_widget(effectif)
         b.add_widget(validatingButton)
-        
 
         self.add_widget(b)
 
@@ -264,13 +272,11 @@ class MyApp(App):
         register = Register(name = 'register')
         companyInformations = CompanyInformations(name = 'companyInformations')
         
-
-
         self.sm.add_widget(pickLogin)
         self.sm.add_widget(login)
         self.sm.add_widget(register)
         self.sm.add_widget(companyInformations)
-        #self.sm.current = 'companyInformations'
+        self.sm.current = 'companyInformations'
         
         return self.sm
 
