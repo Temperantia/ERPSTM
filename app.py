@@ -6,6 +6,7 @@ from frontend.screens.landing import PickRegisterOrLogin
 from frontend.screens.company import CompanyInformations
 from frontend.screens.home import Home
 from frontend.screens.requests import Requests
+from frontend.screens.order import Order
 from frontend.globals import sm
 
 
@@ -17,6 +18,7 @@ class MyApp(App):
         companyInformations = CompanyInformations(name='companyInformations')
         home = Home(name='home')
         requests = Requests(name='requests')
+        order = Order(name ='order')
 
         sm.add_widget(pickLogin)
         sm.add_widget(login)
@@ -24,6 +26,9 @@ class MyApp(App):
         sm.add_widget(companyInformations)
         sm.add_widget(home)
         sm.add_widget(requests)
+        sm.add_widget(order)
+
+        #sm.current = 'order'
 
         return sm
 

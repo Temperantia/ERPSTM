@@ -20,8 +20,12 @@ class Home(Screen):
         buttnCompanyInfo = Button(text = "Renseigner les informations de l'entreprise")
         buttnCompanyInfo.on_press = self.goToCompany
 
+        buttnOrder = Button(text = "Ajouter une nouvelle commande")
+        buttnOrder.on_press = self.goToOrder
+
         b.add_widget(title)
         b.add_widget(buttnCompanyInfo)
+        b.add_widget(buttnOrder)
 
         l = Label()
         b.add_widget(l)
@@ -34,6 +38,8 @@ class Home(Screen):
 
     def goToRequests(self):
         sm.current = 'requests'
+    def goToOrder(self):
+        sm.current = 'order'
 
     def goToCompany(self):
         sm.current = 'companyInformations'
