@@ -17,7 +17,11 @@ class Home(Screen):
         b.pos_hint = {'x': 0.25}
 
         title = standardTitle('Bienvenue')
+        buttnCompanyInfo = Button(text = "Renseigner les informations de l'entreprise")
+        buttnCompanyInfo.on_press = self.goToCompany
+
         b.add_widget(title)
+        b.add_widget(buttnCompanyInfo)
 
         l = Label()
         b.add_widget(l)
@@ -30,3 +34,6 @@ class Home(Screen):
 
     def goToRequests(self):
         sm.current = 'requests'
+
+    def goToCompany(self):
+        sm.current = 'companyInformations'
