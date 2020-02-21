@@ -2,9 +2,9 @@ from backend.models import User, Supplier, Role
 from backend.session import session
 
 
-def supplier(comp_name, addr, status, turnov, headcnt, author):
-    supp = Supplier(name=comp_name, address=addr, legal_status=status,
-                    turnover=turnov, headcounts=headcnt, authorized=author)
+def supplier(status, comp_name, turnov, headcnt, siren, addss):
+    supp = Supplier(legal_status = status, name = comp_name, turnover = turnov, 
+                    headcounts = headcnt, num_SIREN = siren, address = addss)
     session.add(supp)
     session.commit()
 

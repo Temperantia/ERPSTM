@@ -31,10 +31,10 @@ class Supplier(Base):
     name = Column(String(45))
     address = Column(String(45))
     legal_status = Column(String(45))
-    turnover = Column(Integer)
-    headcounts = Column(Integer)
+    turnover = Column(String(45))
+    headcounts = Column(String(45))
     authorized = Column(TINYINT)
-    status = Column(String(45))
+    num_SIREN = Column(String(45))
 
 
 t_action_role = Table(
@@ -52,7 +52,7 @@ class Request(Base):
     id_supplier = Column(ForeignKey('supplier.id'), nullable=False, index=True)
     supp_status = Column(Enum('Not delivered', 'Delivering', 'Delivered'))
     order_nature = Column(String(45))
-    order_amount = Column(Integer)
+    order_amount = Column(String(45))
     order_ispaid = Column(TINYINT)
     opinion = Column(String(45))
 
