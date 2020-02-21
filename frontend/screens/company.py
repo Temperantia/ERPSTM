@@ -10,9 +10,8 @@ from frontend.globals import sm
 class CompanyInformations(Screen):
     effectif = None
     turnOver = None
-    activitySector = None
+    companyName = None
     mainbutton = None
-    CEOName = None
     SIREN = None
     contact = None
 
@@ -60,10 +59,9 @@ class CompanyInformations(Screen):
         self.turnOver.input_filter = 'float'
         self.effectif = standardTextField('Nombres d\'employés')
         self.effectif.input_filter = 'float'
-        self.activitySector = standardTextField('Secteur d\'activité')
-        self.CEOName = standardTextField('Nom du dirigeant')
+        self.companyName = standardTextField('Nom de l\'entreprise')
         self.SIREN = standardTextField('Numéro SIREN')
-        self.contact = standardTextField('Coordonnés de l\'interlocuteur')
+        self.contact = standardTextField('Coordonnés')
 
         validatingButton = Button()
         validatingButton.text = 'Valider'
@@ -75,15 +73,14 @@ class CompanyInformations(Screen):
 
         b.add_widget(title)
         b.add_widget(self.mainbutton)
+        b.add_widget(self.companyName)
         b.add_widget(self.turnOver)
         b.add_widget(self.effectif)
-        b.add_widget(self.activitySector)
-        b.add_widget(self.CEOName)
         b.add_widget(self.SIREN)
         b.add_widget(self.contact)
         b.add_widget(validatingButton)
         b.add_widget(backButton)
-        
+
         self.add_widget(b)
 
     def goBack(self):
@@ -98,17 +95,15 @@ class CompanyInformations(Screen):
         legalStatus = self.mainbutton.text
         effectif = self.effectif.text
         turnOver = self.turnOver.text
-        activitySector = self.activitySector.text
-        CEOName = self.CEOName.text
+        companyName = self.companyName.text
         SIREN = self.SIREN.text
         contact = self.contact.text
 
-        return (legalStatus, effectif, turnOver, activitySector, CEOName, SIREN, contact)
+        return (legalStatus, effectif, turnOver, companyName, SIREN, contact)
 
     def clearFields(self):
         self.effectif.text = ''
         self.turnOver.text = ''
-        self.activitySector.text = ''
-        self.CEOName.text = ''
+        self.companyName.text = ''
         self.SIREN.text = ''
         self.contact.text = ''
