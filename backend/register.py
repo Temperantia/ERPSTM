@@ -3,7 +3,8 @@ from backend.session import session
 
 
 def supplier(status, comp_name, turnov, headcnt, siren, addss):
-    supp = Supplier(status = legal_status, comp_name = name, turnov = turnover, headcnt = headcounts, siren = num_SIREN, addss = address)
+    supp = Supplier(legal_status = status, name = comp_name, turnover = turnov, 
+                    headcounts = headcnt, num_SIREN = siren, address = addss)
     session.add(supp)
     session.commit()
 
