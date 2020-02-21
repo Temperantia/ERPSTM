@@ -6,7 +6,8 @@ from kivy.uix.screenmanager import Screen
 from frontend.widgets.text_field import standardTextField
 from frontend.widgets.title import standardTitle
 from backend.register import register_user
-from frontend.globals import sm, user
+from frontend.sm import sm
+from frontend.globals import user
 
 
 class Register(Screen):

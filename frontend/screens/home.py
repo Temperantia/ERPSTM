@@ -3,7 +3,11 @@ from frontend.widgets.title import standardTitle
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
-from frontend.globals import sm
+from frontend.globals import requests, suppliers
+from frontend.sc import requestsScreen, suppliersScreen
+from frontend.sm import sm
+from backend.requests import get_requests
+from backend.suppliers import get_suppliers
 
 
 class Home(Screen):
@@ -30,27 +34,22 @@ class Home(Screen):
         buttnLogin.text = 'Voir les demandes en cours'
         buttnLogin.on_press = self.goToRequests
 
-
-        
         b.add_widget(title)
         b.add_widget(buttnCompanyInfo)
         b.add_widget(buttnOrder)
+        b.add_widget(buttnListSupplier)
 
-        buttnLogin = Button()
-        buttnLogin.text = 'Liste des fournisseurs'
-        buttnLogin.on_press = self.goToSuppliers
-        b.add_widget(buttnLogin)
-
-        buttnLogin = Button()
-        buttnLogin.text = 'Demandes en cours'
-        buttnLogin.on_press = self.goToRequests
         b.add_widget(buttnLogin)
         self.add_widget(b)
 
     def goToRequests(self):
+        requests = get_requests()
+        requestsScreen.do_layout()
         sm.current = 'requests'
 
-    def goToSuppliers(self):
+    def goToSupplierList(self):
+        suppliers = get_suppliers()
+        suppliersScreen.do_layout()
         sm.current = 'suppliers'
 
     def goToOrder(self):

@@ -5,11 +5,11 @@ from frontend.screens.login import Login
 from frontend.screens.landing import PickRegisterOrLogin
 from frontend.screens.company import CompanyInformations
 from frontend.screens.home import Home
-from frontend.screens.requests import Requests
-from frontend.screens.suppliers import Suppliers
+
 from frontend.screens.order import Order
 from frontend.screens.supplierlist import SupplierList
-from frontend.globals import sm
+from frontend.sm import sm
+from frontend.sc import requestsScreen, suppliersScreen
 
 
 
@@ -20,8 +20,6 @@ class MyApp(App):
         register = Register(name='register')
         companyInformations = CompanyInformations(name='companyInformations')
         home = Home(name='home')
-        requests = Requests(name='requests')
-        suppliers = Suppliers(name='suppliers')
         order = Order(name ='order')
         supplierList = SupplierList(name = 'supplierList')
         sm.add_widget(pickLogin)
@@ -29,11 +27,10 @@ class MyApp(App):
         sm.add_widget(register)
         sm.add_widget(companyInformations)
         sm.add_widget(home)
-        sm.add_widget(requests)
+        sm.add_widget(requestsScreen)
+        sm.add_widget(suppliersScreen)
         sm.add_widget(order)
         sm.add_widget(supplierList)
-
-        sm.current = 'home'
 
         return sm
 

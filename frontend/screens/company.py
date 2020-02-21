@@ -4,7 +4,7 @@ from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 from frontend.widgets.title import standardTitle
 from frontend.widgets.text_field import standardTextField
-from frontend.globals import sm
+from frontend.sm import sm
 from backend.register import supplier
 
 

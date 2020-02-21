@@ -3,7 +3,7 @@ from frontend.widgets.title import standardTitle
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
-from frontend.globals import sm
+from frontend.sm import sm
 
 
 class PickRegisterOrLogin(Screen):

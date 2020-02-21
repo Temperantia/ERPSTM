@@ -23,7 +23,7 @@ def role(nme):
     session.commit()
 
 def order(ord_amount, ord_nat):
-    ord = Request(order_amount = ord_amount, order_nature = ord_nat)
+    ord = Request(order_amount = ord_amount, order_nature = ord_nat, id_supplier=1)
     session.add(ord)
     session.commit()
 

@@ -4,7 +4,8 @@ from frontend.widgets.title import standardTitle
 from frontend.widgets.text_field import standardTextField
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from frontend.globals import sm, user
+from frontend.sm import sm
+from frontend.globals import user
 from backend.login import login_user
 
 

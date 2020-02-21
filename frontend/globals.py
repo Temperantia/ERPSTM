@@ -1,4 +1,6 @@
-from kivy.uix.screenmanager import ScreenManager
+from backend.requests import get_requests
+from backend.suppliers import get_suppliers
 
 user = None
-sm = ScreenManager()
+requests = get_requests()
+suppliers = get_suppliers()

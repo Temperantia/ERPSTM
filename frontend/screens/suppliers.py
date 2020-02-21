@@ -4,14 +4,13 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 from frontend.widgets.title import standardTitle
-from backend.suppliers import get_suppliers
-from frontend.globals import sm
+from frontend.sm import sm
+from frontend.globals import suppliers
 from kivy.uix.label import Label
 
 class Suppliers(Screen):
     def __init__(self, **kwargs):
         super(Suppliers, self).__init__(**kwargs)
-        suppliers = get_suppliers()
         b = BoxLayout(orientation='vertical')
         b.padding = [10, 10, 10, 10]
         b.pos = (0, 0)
