@@ -7,7 +7,9 @@ from frontend.screens.company import CompanyInformations
 from frontend.screens.home import Home
 from frontend.screens.requests import Requests
 from frontend.screens.order import Order
+from frontend.screens.supplierlist import SupplierList
 from frontend.globals import sm
+
 
 
 class MyApp(App):
@@ -19,7 +21,7 @@ class MyApp(App):
         home = Home(name='home')
         requests = Requests(name='requests')
         order = Order(name ='order')
-
+        supplierList = SupplierList(name = 'supplierList')
         sm.add_widget(pickLogin)
         sm.add_widget(login)
         sm.add_widget(register)
@@ -27,8 +29,9 @@ class MyApp(App):
         sm.add_widget(home)
         sm.add_widget(requests)
         sm.add_widget(order)
+        sm.add_widget(supplierList)
 
-        #sm.current = 'order'
+        sm.current = 'home'
 
         return sm
 

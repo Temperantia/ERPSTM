@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import Screen
 from frontend.widgets.title import standardTitle
 from frontend.widgets.text_field import standardTextField
 from frontend.globals import sm
+from backend.register import supplier
 
 
 class CompanyInformations(Screen):
@@ -99,7 +100,7 @@ class CompanyInformations(Screen):
         SIREN = self.SIREN.text
         contact = self.contact.text
 
-        return (legalStatus, effectif, turnOver, companyName, SIREN, contact)
+        supplier(legalStatus,companyName,turnOver,effectif,SIREN,contact)
 
     def clearFields(self):
         self.effectif.text = ''

@@ -41,11 +41,16 @@ class Order(Screen):
         sm.current = 'home'
 
     def validate(self):
-
+        self.getFields()
+        self.clearFields()
         self.goBack()
 
     def getFields(self):
-        pass
+        amount = self.amount.text
+        description = self.description.text
+        print(amount,description)
+        return (amount,description)
 
     def clearFields(self):
-        pass
+        self.amount.text = ''
+        self.description.text = ''
