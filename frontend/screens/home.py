@@ -42,6 +42,10 @@ class Home(Screen):
         b.add_widget(buttnLogin)
         self.add_widget(b)
 
+    def deconnect(self):
+        sm.current = 'pickLogin'
+        user = None
+
     def goToRequests(self):
         requests = get_requests()
         requestsScreen.do_layout()
