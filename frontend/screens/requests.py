@@ -9,9 +9,18 @@ from frontend.widgets.text_field import standardTextField
 class Requests(Screen):
     def __init__(self, **kwargs):
         super(Requests, self).__init__(**kwargs)
-        layout = GridLayout(cols=2)
-        layout.add_widget(Button(text='Hello 1', size_hint_x=None, width=100))
-        layout.add_widget(Button(text='World 1'))
-        layout.add_widget(Button(text='Hello 2', size_hint_x=None, width=100))
-        layout.add_widget(Button(text='World 2'))
+        requests = [
+            {
+                'timestamp': 'jlskdf',
+                'supp_status': 'sjdlkf',
+                'order_nature': 'sjdlkf',
+                'order_amount': 23,
+            }
+        ]
+        layout = GridLayout(cols=4)
+        for request in requests:
+            layout.add_widget(Button(text=request['timestamp']))
+            layout.add_widget(Button(text=request['supp_status']))
+            layout.add_widget(Button(text=request['order_nature']))
+            layout.add_widget(Button(text=str(request['order_amount'])))
         self.add_widget(layout)
