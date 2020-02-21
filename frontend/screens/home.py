@@ -21,4 +21,12 @@ class Home(Screen):
 
         l = Label()
         b.add_widget(l)
+
+        buttnLogin = Button()
+        buttnLogin.text = 'Demandes en cours'
+        buttnLogin.on_press = self.goToRequests
+        b.add_widget(buttnLogin)
         self.add_widget(b)
+
+    def goToRequests(self):
+        sm.current = 'requests'
