@@ -11,6 +11,7 @@ from backend.login import login_user
 class Login(Screen):
     nom = None
     mdp = None
+    connexionRefused = None
 
     def __init__(self, **kwargs):
         super(Login, self).__init__(**kwargs)
@@ -24,7 +25,7 @@ class Login(Screen):
         title = standardTitle('Connexion')
         b.add_widget(title)
 
-        self.nom = standardTextField('Pseudo')
+        self.nom = standardTextField('Identifiant')
         self.mdp = standardTextField('Mot de passe')
         self.mdp.password = True
         b.add_widget(self.nom)
@@ -37,11 +38,13 @@ class Login(Screen):
         bouttonRetour = Button(text='Retour')
         bouttonRetour.on_press = self.retour
 
-        l = Label()
+        self.connexionRefused = Label()
+        self.connexionRefused.text  = "Mot de passe incorrect"
+        self.connexionRefused.opacity = 0
 
         b.add_widget(btn)
         b.add_widget(bouttonRetour)
-        b.add_widget(l)
+        b.add_widget(self.connexionRefused)
         self.add_widget(b)
 
     def retour(self):
@@ -53,7 +56,7 @@ class Login(Screen):
 
         user = login_user(pseudo, mdp)
         if user == None:
-            pass  # TODO display login error
+            self.connexionRefused.opacity = 1
         else:
             sm.current = 'home'
 

@@ -21,6 +21,7 @@ class MyApp(App):
         sm.add_widget(register)
         sm.add_widget(companyInformations)
         sm.add_widget(home)
+        #sm.current = 'home'
 
         return sm
 
