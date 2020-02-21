@@ -1,5 +1,5 @@
 # coding: utf-8
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Table
+from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.mysql import TINYINT
 from sqlalchemy.ext.declarative import declarative_base
@@ -50,6 +50,11 @@ class Request(Base):
     id = Column(Integer, primary_key=True)
     timestamp = Column(DateTime, nullable=False)
     id_supplier = Column(ForeignKey('supplier.id'), nullable=False, index=True)
+    supp_status = Column(Enum('Not delivered', 'Delivering', 'Delivered'))
+    order_nature = Column(String(45))
+    order_amount = Column(Integer)
+    order_ispaid = Column(TINYINT)
+    opinion = Column(String(45))
 
     supplier = relationship('Supplier')
 
@@ -64,8 +69,7 @@ class User(Base):
     password = Column(String(45), nullable=False)
     internal = Column(TINYINT, nullable=False)
     id_supplier = Column(ForeignKey('supplier.id'), index=True)
-    id_role = Column(ForeignKey('role.id'), nullable=False, index=True)
+    id_role = Column(ForeignKey('role.id'), index=True)
 
     role = relationship('Role')
     supplier = relationship('Supplier')
-    #commentaire
