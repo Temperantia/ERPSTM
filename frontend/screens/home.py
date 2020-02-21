@@ -22,7 +22,16 @@ class Home(Screen):
 
         buttnOrder = Button(text = "Ajouter une nouvelle commande")
         buttnOrder.on_press = self.goToOrder
+        
+        buttnListSupplier = Button(text = "Voir la liste des fournisseurs")
+        buttnListSupplier.on_press = self.goToSupplierList
 
+        buttnLogin = Button()
+        buttnLogin.text = 'Voir les demandes en cours'
+        buttnLogin.on_press = self.goToRequests
+
+
+        
         b.add_widget(title)
         b.add_widget(buttnCompanyInfo)
         b.add_widget(buttnOrder)

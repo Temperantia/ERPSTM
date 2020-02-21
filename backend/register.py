@@ -1,4 +1,4 @@
-from backend.models import User, Supplier, Role
+from backend.models import User, Supplier, Role, Request
 from backend.session import session
 
 
@@ -20,6 +20,11 @@ def register_user(firstnm, lastnm, pseudo, passwd, is_supplier):
 def role(nme):
     rol = Role(name=nme)
     session.add(rol)
+    session.commit()
+
+def order(ord_amount, ord_nat):
+    ord = Request(order_amount = ord_amount, order_nature = ord_nat)
+    session.add(ord)
     session.commit()
 
 # role('Chef')

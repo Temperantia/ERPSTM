@@ -48,8 +48,8 @@ class Request(Base):
     __tablename__ = 'request'
 
     id = Column(Integer, primary_key=True)
-    timestamp = Column(DateTime, nullable=False)
-    id_supplier = Column(ForeignKey('supplier.id'), nullable=False, index=True)
+    timestamp = Column(DateTime)
+    id_supplier = Column(ForeignKey('supplier.id'), index=True)
     supp_status = Column(Enum('Not delivered', 'Delivering', 'Delivered'))
     order_nature = Column(String(45))
     order_amount = Column(String(45))
