@@ -99,7 +99,6 @@ class CompanyInformations(Screen):
         companyName = self.companyName.text
         SIREN = self.SIREN.text
         contact = self.contact.text
-
         supplier(legalStatus,companyName,turnOver,effectif,SIREN,contact)
 
     def clearFields(self):

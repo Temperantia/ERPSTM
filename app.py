@@ -22,6 +22,7 @@ class MyApp(App):
         requests = Requests(name='requests')
         order = Order(name ='order')
         supplierList = SupplierList(name = 'supplierList')
+        
         sm.add_widget(pickLogin)
         sm.add_widget(login)
         sm.add_widget(register)
