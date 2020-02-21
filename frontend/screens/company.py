@@ -4,6 +4,7 @@ from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 from frontend.widgets.title import standardTitle
 from frontend.widgets.text_field import standardTextField
+from frontend.globals import sm
 
 
 class CompanyInformations(Screen):
@@ -68,6 +69,10 @@ class CompanyInformations(Screen):
         validatingButton.text = 'Valider'
         validatingButton.on_press = self.validating
 
+        backButton = Button()
+        backButton.text = 'Retour'
+        backButton.on_press = self.goBack
+
         b.add_widget(title)
         b.add_widget(self.mainbutton)
         b.add_widget(self.turnOver)
@@ -77,11 +82,17 @@ class CompanyInformations(Screen):
         b.add_widget(self.SIREN)
         b.add_widget(self.contact)
         b.add_widget(validatingButton)
+        b.add_widget(backButton)
+        
         self.add_widget(b)
+
+    def goBack(self):
+        sm.current = "home"        
 
     def validating(self):
         self.getFields()
         self.clearFields()
+        self.goBack()
 
     def getFields(self):
         legalStatus = self.mainbutton.text
