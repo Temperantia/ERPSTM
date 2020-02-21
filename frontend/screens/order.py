@@ -5,6 +5,7 @@ from frontend.widgets.text_field import standardTextField
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from frontend.globals import sm
+from backend.register import order
 
 class Order(Screen):
     amount = None
@@ -48,8 +49,7 @@ class Order(Screen):
     def getFields(self):
         amount = self.amount.text
         description = self.description.text
-        print(amount,description)
-        return (amount,description)
+        order(amount,description)
 
     def clearFields(self):
         self.amount.text = ''
