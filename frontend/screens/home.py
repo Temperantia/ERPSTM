@@ -27,8 +27,10 @@ class Home(Screen):
         b.add_widget(buttnCompanyInfo)
         b.add_widget(buttnOrder)
 
-        l = Label()
-        b.add_widget(l)
+        buttnLogin = Button()
+        buttnLogin.text = 'Liste des fournisseurs'
+        buttnLogin.on_press = self.goToSuppliers
+        b.add_widget(buttnLogin)
 
         buttnLogin = Button()
         buttnLogin.text = 'Demandes en cours'
@@ -38,6 +40,10 @@ class Home(Screen):
 
     def goToRequests(self):
         sm.current = 'requests'
+
+    def goToSuppliers(self):
+        sm.current = 'suppliers'
+
     def goToOrder(self):
         sm.current = 'order'
 
